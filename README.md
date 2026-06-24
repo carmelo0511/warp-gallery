@@ -24,5 +24,5 @@ Zero-config static deploy on Vercel.
 
 ---
 
-> **Note:** the moodboard media lives in `assets/moodboard/` (personal Midjourney
-> images + one video). The older `assets/patch/` set is unused and kept only for reference.
+> **Note:** the moodboard media lives in `assets/moodboard/` — personal Midjourney
+> images plus one looping video.
