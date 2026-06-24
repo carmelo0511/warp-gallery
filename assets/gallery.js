@@ -1,5 +1,5 @@
 /* ============================================================
-   WARP — Patch warp gallery
+   Bankai — moodboard warp gallery
    Authentic recreation of the system.studio horizontal "rail":
    a row of tiles that fan vertically toward the left/right edges
    (vertex warp) with chromatic aberration there (fragment).
@@ -9,57 +9,29 @@
 (function () {
   "use strict";
 
-  var BASE = "../assets/patch/";
+  var BASE = "../assets/moodboard/";
 
   // The rail, in order. type: image | video | text
+  // A personal Midjourney moodboard — soft to loud, kept just for me.
   var TILES = [
-    { type: "image", src: "patch-hero.png" },
-    { type: "text", label: "Product", body: [
-      "Patch is moulded from soft silicone with an NFC chip and magnet baked inside.",
-      "Tap your phone to lock your apps, tap again to unlock. It’s designed to help people focus without noise.",
-      "We wanted the shape to be small, fun, grippable and hard to forget."
+    { type: "image", src: "01-cherry-blossom.png" },
+    { type: "text", label: "Just for me", body: [
+      "This isn't for a client or a pitch. It's my own Midjourney moodboard.",
+      "Images I generated or saved because they made me feel something.",
+      "No brief, no deadline. Just taste."
     ]},
-    { type: "video", src: "patch-render-960.mp4" },
-    { type: "image", src: "patch-still.png" },
-    { type: "image", src: "patch-diagram.png" },
-    { type: "text", label: "Photography", body: [
-      "The photography style splits between real life and play. Patch is shot in everyday contexts, in hand, on bedside tables, and out in the world.",
-      "Alongside that, we leaned into fun, fisheye-distorted treatments that stretch and warp the object. Bold colour, exaggerated scale, nothing too serious.",
-      "Two modes for one product."
+    { type: "image", src: "08-swimmers.png" },
+    { type: "image", src: "02-croissant.png" },
+    { type: "image", src: "05-student-books.png" },
+    { type: "text", label: "Soft & loud", body: [
+      "Some of it is soft — paint, warm light, quiet mornings.",
+      "Some of it is loud — deep colour, old anime, hard light.",
+      "That's the point. Everything I like, in one place."
     ]},
-    { type: "image", src: "patch-model-1.png" },
-    { type: "image", src: "patch-model-2.png" },
-    { type: "image", src: "patch-model-3.png" },
-    { type: "image", src: "patch-bedside-table.png" },
-    { type: "image", src: "patch-sky.png" },
-    { type: "text", label: "Visual Identity", body: [
-      "The visual identity starts with the mark and the device. Rounded forms and soft geometry that spread out from the object.",
-      "Colour is the main idea. Black plus six bold, saturated hues. Loud and playful, built to stand out in a category that usually plays it safe.",
-      "Different enough to catch your eye, close enough to feel right."
-    ]},
-    { type: "image", src: "patch-lockup.png", fit: "contain", bg: "#0a0a0a" },
-    { type: "image", src: "patch-typography.png" },
-    { type: "video", src: "patch-words-960.mp4" },
-    { type: "video", src: "patch-shapes-960.mp4" },
-    { type: "image", src: "patch-swatch.png" },
-    { type: "text", label: "App", body: [
-      "The Patch app is designed to be as simple as possible. Tap your phone to lock your apps. Tap again to unlock.",
-      "Built-in scheduling for the ability to auto-patch. Modes for different situations, from blocking everything to keeping email off.",
-      "You do you."
-    ]},
-    { type: "image", src: "patch-app.png" },
-    { type: "video", src: "patch-apps-960.mp4" },
-    { type: "video", src: "patch-widgets-960.mp4" },
-    { type: "text", label: "Out of World", body: [
-      "When Patch goes out into the world, the advertising stays simple. One idea per piece, said with confidence.",
-      "Billboards lean on bold colour and plain language. Relatable setups, not corporate tech speak. Often just a few words and an image.",
-      "Not a word more."
-    ]},
-    { type: "image", src: "patch-billboard-1.png" },
-    { type: "image", src: "patch-billboard-2.png" },
-    { type: "image", src: "patch-billboard-3.png" },
-    { type: "image", src: "patch-billboard-4.png" },
-    { type: "image", src: "patch-story.png" }
+    { type: "image", src: "07-red-robes.png" },
+    { type: "image", src: "03-lineman.png" },
+    { type: "image", src: "04-gameboy.png" },
+    { type: "video", src: "06-space-opera.mp4" }
   ];
 
   var canvas = document.getElementById("gl");

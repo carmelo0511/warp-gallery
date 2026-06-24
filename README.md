@@ -1,12 +1,12 @@
-# WARP — warp gallery
+# Bankai — warp gallery
 
-A faithful front-end recreation of a design-studio site, centred on a **WebGL
-horizontal "warp" gallery**: a rail of media tiles that fan vertically toward the
-left/right edges with chromatic-aberration fringing, looping infinitely.
+A personal Midjourney moodboard, presented through a **WebGL horizontal "warp"
+gallery**: a rail of media tiles that fan vertically toward the left/right edges
+with chromatic-aberration fringing, looping infinitely.
 
 ## Pages
-- **`/`** — landing: wordmark, intro, work list, and a cursor-following hover preview.
-- **`/work/patch.html`** — the warp gallery (real images + looping video textures).
+- **`/`** — landing: wordmark, intro, and board list with a cursor-following hover preview.
+- **`/work/patch.html`** — the moodboard warp gallery (images + a looping video texture).
 
 ## Tech
 Pure static site — HTML, CSS, and vanilla WebGL (no framework, no build step).
@@ -24,5 +24,5 @@ Zero-config static deploy on Vercel.
 
 ---
 
-> **Note:** the photography/video in `assets/patch/` are reference brand assets used
-> for this recreation study. Swap in your own media before using this publicly.
+> **Note:** the moodboard media lives in `assets/moodboard/` (personal Midjourney
+> images + one video). The older `assets/patch/` set is unused and kept only for reference.
