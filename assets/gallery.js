@@ -13,26 +13,56 @@
 
   // The rail, in order. type: image | video | text
   // A personal Midjourney moodboard — soft to loud, kept just for me.
+  // Images use a base name; the loader appends the resolution + ".jpg".
   var TILES = [
-    { type: "image", src: "01-cherry-blossom.jpg" },
+    { type: "image", src: "01-cherry-blossom", alt: "Oil-painted cherry blossom trees arching over a pink, petal-strewn path." },
     { type: "text", label: "Just for me", body: [
       "This isn't for a client or a pitch. It's my own Midjourney moodboard.",
       "Images I generated or saved because they made me feel something.",
       "No brief, no deadline. Just taste."
     ]},
-    { type: "image", src: "08-swimmers.jpg" },
-    { type: "image", src: "02-croissant.jpg" },
-    { type: "image", src: "05-student-books.jpg" },
+    { type: "image", src: "08-swimmers", alt: "Soft gouache aerial of a couple holding hands, floating in turquoise water." },
+    { type: "image", src: "02-croissant", alt: "Matisse-style gouache of a croissant, coffee and a glass of water on a café table." },
+    { type: "image", src: "05-student-books", alt: "Dreamy, soft-focus scene of a person perched on a giant stack of books above a hazy city." },
     { type: "text", label: "Soft & loud", body: [
       "Some of it is soft — paint, warm light, quiet mornings.",
       "Some of it is loud — deep colour, old anime, hard light.",
       "That's the point. Everything I like, in one place."
     ]},
-    { type: "image", src: "07-red-robes.jpg" },
-    { type: "image", src: "03-lineman.jpg" },
-    { type: "image", src: "04-gameboy.jpg" },
-    { type: "video", src: "06-space-opera.mp4" }
+    { type: "image", src: "07-red-robes", alt: "Renaissance-style oil painting of a wide-eyed woman in red robes among white-bonneted figures." },
+    { type: "image", src: "03-lineman", alt: "Minimal, graphic photo of a lineman in orange on a crane against a flat blue sky." },
+    { type: "image", src: "04-gameboy", alt: "Anime/comic illustration of a retro handheld game console on a shop shelf." },
+    { type: "video", src: "06-space-opera.mp4", alt: "Looping 1980s retro-anime clip of a character firing a beam blaster among the stars." }
   ];
+
+  // Accessible, crawlable mirror of the rail — the canvas itself is aria-hidden,
+  // so screen readers and search engines read this text instead of nothing.
+  (function buildIndex() {
+    var sec = document.createElement("section");
+    sec.className = "sr-only";
+    sec.setAttribute("aria-label", "Moodboard contents");
+    TILES.forEach(function (t) {
+      if (t.type === "text") {
+        var h = document.createElement("h2");
+        h.textContent = t.label;
+        sec.appendChild(h);
+        t.body.forEach(function (line) {
+          var p = document.createElement("p");
+          p.textContent = line;
+          sec.appendChild(p);
+        });
+      } else if (t.alt) {
+        var p = document.createElement("p");
+        p.textContent = t.alt;
+        sec.appendChild(p);
+      }
+    });
+    document.body.appendChild(sec);
+  })();
+
+  // Pick an image resolution that fits the device so phones/laptops don't pull a
+  // desktop-sized texture. Tiles render at ~0.6 of viewport height (DPR-capped).
+  var IMG_SIZE = ((window.innerHeight || 800) * 0.6 * Math.min(window.devicePixelRatio || 1, 2)) > 1280 ? "lg" : "sm";
 
   var canvas = document.getElementById("gl");
   if (!canvas) return;
@@ -184,7 +214,7 @@
         gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, img);
         tile.ready = true;
       };
-      img.src = BASE + def.src;
+      img.src = BASE + def.src + "-" + IMG_SIZE + ".jpg";
     } else if (def.type === "video") {
       var v = document.createElement("video");
       v.muted = true; v.loop = true; v.playsInline = true;

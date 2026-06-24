@@ -425,6 +425,18 @@ a.work__row:hover { opacity: 0.55; }
 .backlink { color: var(--muted); font-size: 13px; }
 .backlink:hover { color: var(--ink); }
 
+/* visually hidden, but read by screen readers and search engines */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ============================================================
    Moodboard — warp gallery
    ============================================================ */
