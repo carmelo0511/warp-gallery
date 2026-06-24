@@ -432,17 +432,23 @@ a.work__row:hover { opacity: 0.55; }
   height: 100%;
   overflow: hidden;
   background: #fff;
+  overscroll-behavior: none;   /* no pull-to-refresh / scroll chaining on mobile */
 }
-html:has(.gallery-page) { height: 100%; overflow: hidden; }
+html:has(.gallery-page) { height: 100%; overflow: hidden; overscroll-behavior: none; }
 
 #gl {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;              /* track the visible viewport on mobile (no chrome jump) */
   display: block;
   cursor: grab;
   z-index: 1;
+  touch-action: none;         /* the rail handles drag/swipe itself */
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
 }
 #gl.grabbing { cursor: grabbing; }
 
@@ -514,4 +520,19 @@ html:has(.gallery-page) { height: 100%; overflow: hidden; }
   .band, .band3 { grid-template-columns: 1fr; }
   .sidecopy { writing-mode: horizontal-tb; transform: none; max-height: none; }
   .copy { position: static; margin-top: 60px; display: block; padding: 0 var(--pad-x); }
+
+  /* gallery header: the 3-column layout is too tight on phones — stack it and
+     drop the long intro (the same idea lives in the first "Just for me" tile). */
+  .gallery-page .copy { position: fixed; margin-top: 0; padding: 0; }
+  .ghead {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    top: 16px;
+  }
+  .ghead .brand { font-size: 18px; }
+  .ghead__mid { padding-top: 0; }
+  .ghead__title { font-size: 13px; margin-bottom: 4px; }
+  .ghead__meta { font-size: 12px; line-height: 1.45; }
+  .ghead__lede { display: none; }
+  .ghint { bottom: 18px; font-size: 11px; }
 }

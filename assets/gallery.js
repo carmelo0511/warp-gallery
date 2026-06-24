@@ -14,23 +14,23 @@
   // The rail, in order. type: image | video | text
   // A personal Midjourney moodboard — soft to loud, kept just for me.
   var TILES = [
-    { type: "image", src: "01-cherry-blossom.png" },
+    { type: "image", src: "01-cherry-blossom.jpg" },
     { type: "text", label: "Just for me", body: [
       "This isn't for a client or a pitch. It's my own Midjourney moodboard.",
       "Images I generated or saved because they made me feel something.",
       "No brief, no deadline. Just taste."
     ]},
-    { type: "image", src: "08-swimmers.png" },
-    { type: "image", src: "02-croissant.png" },
-    { type: "image", src: "05-student-books.png" },
+    { type: "image", src: "08-swimmers.jpg" },
+    { type: "image", src: "02-croissant.jpg" },
+    { type: "image", src: "05-student-books.jpg" },
     { type: "text", label: "Soft & loud", body: [
       "Some of it is soft — paint, warm light, quiet mornings.",
       "Some of it is loud — deep colour, old anime, hard light.",
       "That's the point. Everything I like, in one place."
     ]},
-    { type: "image", src: "07-red-robes.png" },
-    { type: "image", src: "03-lineman.png" },
-    { type: "image", src: "04-gameboy.png" },
+    { type: "image", src: "07-red-robes.jpg" },
+    { type: "image", src: "03-lineman.jpg" },
+    { type: "image", src: "04-gameboy.jpg" },
     { type: "video", src: "06-space-opera.mp4" }
   ];
 
@@ -187,12 +187,14 @@
       img.src = BASE + def.src;
     } else if (def.type === "video") {
       var v = document.createElement("video");
-      v.src = BASE + def.src; v.muted = true; v.loop = true; v.playsInline = true;
-      v.setAttribute("playsinline", ""); v.autoplay = true; v.preload = "auto";
-      v.addEventListener("loadeddata", function () {
-        tile.aspect = v.videoWidth / v.videoHeight || 1;
-        tile.video = v; tile.ready = true;
-        v.play().catch(function () {});
+      v.muted = true; v.loop = true; v.playsInline = true;
+      v.setAttribute("playsinline", ""); v.preload = "metadata";
+      v.src = BASE + def.src;
+      // metadata is light (gives us the aspect for layout); the full download is
+      // deferred until the tile scrolls on-screen — see the play/pause in render().
+      v.addEventListener("loadedmetadata", function () {
+        tile.aspect = v.videoWidth / v.videoHeight || tile.aspect;
+        tile.ready = true;
       });
       tile.video = v;
     }
@@ -262,6 +264,13 @@
         var px = base + k * railW;
         if (px + t.width >= -60 && px <= W + 60) { visK = visK || []; visK.push(px); }
       }
+
+      // play videos only while on-screen — defers the download and saves CPU/battery
+      if (t.def.type === "video" && t.video) {
+        if (visK) { if (t.video.paused) t.video.play().catch(function () {}); }
+        else if (!t.video.paused) { t.video.pause(); }
+      }
+
       if (!visK) continue;
 
       // object-fit cover crop (same for every wrapped copy)
